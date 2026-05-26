@@ -95,7 +95,7 @@ function IndustryCard({ industry, index, containerRef }) {
     <motion.div
       ref={cardRef}
       style={{ y }}
-      className="w-full bg-[#ee8553] text-white p-6 md:p-8 rounded-[2rem] shadow-sm hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between h-full"
+      className="w-full bg-[#ee8553] text-white p-6 md:p-8 rounded-4xl shadow-sm hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between h-full"
     >
       <div>
         {/* Icon and Title */}
