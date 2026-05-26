@@ -1,15 +1,17 @@
 @import "tailwindcss";
 
-@theme {
+/* @theme {
   --font-sans: 'Poppins', sans-serif;
-}
+} */
 
 /* In v4, just write standard CSS for your base styles */
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   width: 100%;
-  overflow-x: hidden; 
-  font-family: var(--font-sans);
-  background-color: white; /* Moved your body background here */
+  overflow-x: hidden;
+  font-family: Poppins;
+  background-color: white;
+  /* Moved your body background here */
 }

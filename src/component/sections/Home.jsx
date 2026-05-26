@@ -17,29 +17,30 @@ export default function HomeSection() {
       tags: ["Flexibility", "Cost-Effective", "Scalability", "Expertise"],
       image: "https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?q=80&w=800&auto=format&fit=crop"
     },
-    {
-      title: "Project Cargo & ODC",
-      desc: "Engineered transport routes for heavy engineering and turnkey equipment configurations. We bypass standard road friction to ensure maximum transit clearance for out-of-gauge equipment with dedicated security escorts.",
-      tags: ["Turnkey Project", "ODC Clearances", "Heavy Lift"],
-      image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=800&auto=format&fit=crop"
-    },
+
     {
       title: "Multi Modal Transport",
       desc: "Every shipment is unique, so we offer multiple affordable transport options.Along with air and sea freight, we provide multimodal transport via our global network.Our tailored solutions enable real-time cargo tracking. We streamline your supply chain as your single point of contact.",
       tags: ["Active Insulation", "PCM Frameworks", "Pharma Compliance"],
-      image: "https://images.unsplash.com/photo-1580584126903-c17d41830450?q=80&w=800&auto=format&fit=crop"
+      image: "/modal.jfif" /* Note: Move this to public folder or assets for production */
     },
     {
-      title: "Customs Brokerage",
-      desc: "In-house clearing infrastructure handling complex customs tariff structures and documentation parameters. Fast-track custom clearance protocols that eliminate high transit storage spikes and regulatory penalties.",
-      tags: ["AEO Compliant", "Documentation Nodes", "Tariff Mapping"],
+      title: "Project Cargo",
+      desc: "We understand the precise needs of customers and shipping lines, ensuring cargo is stuffed, lashed, and choked to specifications.We handle logistics, clearance, and oversized or breakbulk cargo with expertise.We transport over-dimensional cargo using open tops, flat racks, and flatbeds.",
+      tags: ["Precision", "Expertise", "Oversized", "Security"],
+      image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=800&auto=format&fit=crop"
+    },
+    {
+      title: "Custom Broking",
+      desc: "Our licensed customs agents know domestic and international regulations.With 30+ years of experience, we have strong ties with authorities and handle all clearance challenges.We ensure smooth, timely, and transparent cargo clearance. Our experts get your documentation right the first time.",
+      tags: ["Accuracy", "Compliance", "Speed", "Expertise"],
       image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=800&auto=format&fit=crop"
     },
     {
-      title: "Warehousing & Hubs",
-      desc: "Cross-docking structures with secure micro-fulfillment infrastructure execution options. Integrated terminal control points handling real-time telemetry updates and continuous parcel classification audits.",
-      tags: ["Cross-Docking", "Telemetry Audits", "Micro-Fulfillment"],
-      image: "https://images.unsplash.com/photo-1553413719-875871274715?q=80&w=800&auto=format&fit=crop"
+      title: "Transit Warehouse and Fleet",
+      desc: "Our transit warehouse is near the International Air Cargo Complex and Ocean Ports.We offer storage for all cargo types, including temperature-controlled (15–25°C, 2–8°C), DGR, and general cargo zones.We provide specialized packaging, palletizing, and shrink wrapping.Our reefer and general trucks ensure smooth nationwide transportation.",
+      tags: ["Specialized", "Accessible", "Versatile", "Nationwide"],
+      image: "/warehouse.jfif" /* Note: Move this to public folder or assets for production */
     }
   ];
 
@@ -150,7 +151,6 @@ export default function HomeSection() {
       {/* 4. PERFORMANCE CAPABILITIES LAYER (6 SERVICES INTERACTION MATRIX) */}
       <section className="w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-24 space-y-16">
 
-        {/* Top Header Layout Block matching your screenshot */}
         <div className="w-full flex flex-col space-y-4">
           <div>
             <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-medium bg-slate-800 text-slate-300 border border-slate-700">
@@ -199,12 +199,12 @@ export default function HomeSection() {
                 <div className="w-full lg:col-span-7 flex flex-col justify-center p-8 sm:p-12 lg:p-14 space-y-5">
 
                   {/* Service Title */}
-                  <h3 className="text-2xl sm:text-3xl font-bold text-slate-950 tracking-tight">
+                  <h3 className="text-xl sm:text-2xl font-bold text-slate-950 tracking-tight">
                     {srv.title}
                   </h3>
 
                   {/* Description text matches design specs */}
-                  <p className="text-slate-600 text-sm leading-relaxed font-normal">
+                  <p className="text-slate-600 text-sm  leading-relaxed font-normal">
                     {srv.desc}
                   </p>
 

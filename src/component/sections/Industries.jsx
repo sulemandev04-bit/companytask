@@ -1,12 +1,12 @@
-import React from 'react'
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
-// Screenshots se extract kiya gaya accurate data array
 const industriesData = [
   {
     id: "pharmaceuticals",
     title: "Pharmaceuticals",
     description: "The pharmaceutical industry requires highly customized supply chain solutions. Our temperature-controlled warehouse ensures seamless end-to-end service, prioritizing transparency and attention to detail for precise and reliable shipments.",
-    iconPath: "M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z", 
+    iconPath: "M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z",
   },
   {
     id: "chemicals",
@@ -52,7 +52,6 @@ const industriesData = [
   },
 ];
 
-// Screenshot se nikala hua accurate FAQ Data array
 const faqData = [
   {
     id: "faq-1",
@@ -76,78 +75,94 @@ const faqData = [
   }
 ];
 
-function Industries() {
+// Individual Card Component with Scroll Physics
+function IndustryCard({ industry, index, containerRef }) {
+  const cardRef = useRef(null);
+
+  // Scroll tracking for individual card relative to parent container
+  const { scrollYProgress } = useScroll({
+    target: cardRef,
+    offset: ["start end", "end start"]
+  });
+
+  // Indexing ke base par movement alter karna (Odd cards go down, Even cards go up on scroll)
+  const isEven = index % 2 === 0;
+  const yRange = isEven ? [-60, 60] : [60, -60];
+  
+  const y = useTransform(scrollYProgress, [0, 1], yRange);
+
   return (
-    <div className="min-h-screen bg-white text-slate-800 font-sans selection:bg-orange-200">
-      
+    <motion.div
+      ref={cardRef}
+      style={{ y }}
+      className="w-full bg-[#ee8553] text-white p-6 md:p-8 rounded-[2rem] shadow-sm hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between h-full"
+    >
+      <div>
+        {/* Icon and Title */}
+        <div className="flex items-center gap-4 mb-4">
+          <div className="p-3 bg-white/10 rounded-full backdrop-blur-sm border border-white/20 inline-flex items-center justify-center shrink-0 w-12 h-12">
+            <svg
+              className="w-6 h-6 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="1.5"
+                d={industry.iconPath}
+              />
+            </svg>
+          </div>
+          <h2 className="text-xl md:text-2xl font-semibold tracking-tight">
+            {industry.title}
+          </h2>
+        </div>
+
+        {/* Description */}
+        <p className="text-sm text-white/90 leading-relaxed font-light">
+          {industry.description}
+        </p>
+      </div>
+    </motion.div>
+  );
+}
+
+function Industries() {
+  const containerRef = useRef(null);
+
+  return (
+    <div className="min-h-screen bg-white text-slate-800 font-sans selection:bg-orange-200 overflow-x-hidden">
+
       {/* Header Title Section */}
       <div className="max-w-4xl mx-auto text-center pt-16 pb-12 px-6">
         <h1 className="text-4xl md:text-5xl font-light tracking-wide text-neutral-900 uppercase mb-6">
           Industries
         </h1>
         <p className="text-base md:text-lg text-neutral-700 leading-relaxed max-w-2xl mx-auto">
-          Over the past two decades we have been coming up with innovative ways to 
+          Over the past two decades we have been coming up with innovative ways to
           enable global trade across various industries.
         </p>
       </div>
 
-      {/* Main Container for Alternating Layout */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
-        <div className="flex flex-col gap-12 md:gap-0 relative">
-          
-          {industriesData.map((industry, index) => {
-            // Logic to separate left and right alignment on desktop
-            const isRightSide = index % 2 !== 0;
-
-            return (
-              <div
-                key={industry.id}
-                className={`flex w-full justify-start md:mb-4 ${
-                  isRightSide ? "md:justify-end" : "md:justify-start"
-                }`}
-              >
-                {/* Specific Rounded Styling and Orange Background color (#ee8553) */}
-                <div className="w-full md:w-[42%] bg-[#ee8553] text-white p-8 md:p-10 rounded-[2.5rem] shadow-sm hover:shadow-md transition-all duration-300 ease-in-out transform hover:-translate-y-1">
-                  
-                  {/* Icon and Title Layout */}
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="p-3 bg-white/10 rounded-full backdrop-blur-sm border border-white/20 inline-flex items-center justify-center shrink-0 w-14 h-14">
-                      <svg
-                        className="w-7 h-7 text-white"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="1.5"
-                          d={industry.iconPath}
-                        />
-                      </svg>
-                    </div>
-                    <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">
-                      {industry.title}
-                    </h2>
-                  </div>
-
-                  {/* Card Body Description */}
-                  <p className="text-sm md:text-[0.95rem] text-white/90 leading-relaxed font-light">
-                    {industry.description}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
-          
+      {/* Main Container Grid: Desktop par perfect 3 Columns (3 rows default wrap style) */}
+      <div ref={containerRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-32">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-16 gap-x-8 items-start">
+          {industriesData.map((industry, index) => (
+            <IndustryCard 
+              key={industry.id} 
+              industry={industry} 
+              index={index} 
+              containerRef={containerRef}
+            />
+          ))}
         </div>
       </div>
 
-      {/* --- NEW SECTION: Frequently Asked Questions --- */}
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-24 grid grid-cols-1 lg:grid-cols-12 gap-12 pt-12 border-t border-gray-100">
-        
-        {/* Left column heading text */}
+      {/* --- FAQ Section --- */}
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-24 grid grid-cols-1 lg:grid-cols-12 gap-12 pt-16 border-t border-gray-100">
         <div className="lg:col-span-5 space-y-4">
           <h2 className="text-3xl md:text-4xl font-light text-neutral-900 tracking-tight">
             Frequently Asked <span className="text-neutral-400 font-normal">Questions</span>
@@ -157,7 +172,6 @@ function Industries() {
           </p>
         </div>
 
-        {/* Right column pure CSS native accordion items */}
         <div className="lg:col-span-7 divide-y divide-gray-200">
           {faqData.map((faq) => (
             <details key={faq.id} className="group py-4 [&_summary::-webkit-details-marker]:hidden">
@@ -165,7 +179,6 @@ function Industries() {
                 <span className="text-base md:text-md font-medium tracking-wide">
                   {faq.question}
                 </span>
-                {/* Custom animated chevron down icon */}
                 <svg
                   className="w-5 h-5 text-gray-400 group-open:-rotate-180 transition-transform duration-300"
                   fill="none"
@@ -176,7 +189,7 @@ function Industries() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                 </svg>
               </summary>
-              <div className="mt-3 text-neutral-600 text-sm md:text-base leading-relaxed pl-1 animate-fadeIn">
+              <div className="mt-3 text-neutral-600 text-sm md:text-base leading-relaxed pl-1">
                 <p>{faq.answer}</p>
               </div>
             </details>
@@ -184,7 +197,7 @@ function Industries() {
         </div>
       </div>
 
-      {/* --- NEW SECTION: Bottom Accent Banner --- */}
+      {/* --- Bottom Accent Banner --- */}
       <div className="w-full bg-[#707070] text-white py-16 px-6 text-center">
         <div className="max-w-4xl mx-auto space-y-3">
           <h3 className="text-3xl md:text-4xl font-semibold tracking-wide">
